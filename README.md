@@ -37,12 +37,12 @@ Busca básica por palavra-chave:
 
 > python3 cli.py -k "firefox 40"
 
+> python3 cli.py -k "chrome"
+
 Busca por um CPE pré-definido:
 
 > python3 cli.py -c libreoffice_5_3_7_2
 
-Combinar CPE, palavra-chave e severidade CRÍTICA:
 
-> python3 cli.py -c adobe_flash_player_21_npapi -k "rce" -s CRITICAL
 
 
