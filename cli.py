@@ -5,8 +5,6 @@ import argparse
 import json
 
 # --- Dicionário de CPEs Pré-definidos ---
-# IMPORTANTE: Verifique a exatidão destes CPEs na NVD para garantir resultados precisos.
-# Os CPEs são sensíveis a detalhes como versão, edição, idioma, etc.
 PREDEFINED_CPES = {
     "adobe_acrobat_8_1": "cpe:2.3:a:adobe:acrobat:8.1.0:*:standard:*:*:*:*:*",
     "adobe_reader_dc": "cpe:2.3:a:adobe:acrobat_reader_dc:*:*:*:*:*:*:*:*",
@@ -19,7 +17,7 @@ PREDEFINED_CPES = {
     "mozilla_firefox_40_pt_br": "cpe:2.3:a:mozilla:firefox:40.0:*:*:*:*:*:pt-br:*"
 }
 
-def search_nvd(keyword=None, selected_cpes_keys=None, cvss_severity=None, cvss_version=None):
+def search_nvd(keyword_terms=None, selected_cpes_keys=None, cvss_severity=None, cvss_version=None):
     """
     Realiza buscas na NVD usando palavra-chave e/ou CPE(s) de um dicionário pré-definido,
     com filtros opcionais de severidade e versão CVSS.
@@ -34,6 +32,9 @@ def search_nvd(keyword=None, selected_cpes_keys=None, cvss_severity=None, cvss_v
                 cpes_to_search.append(PREDEFINED_CPES[key])
             else:
                 print(f"Aviso: Chave de CPE '{key}' não encontrada nos CPEs pré-definidos. Ignorando.")
+
+    # Combina os termos de palavra-chave em uma única string, se houver
+    keyword = " ".join(keyword_terms) if keyword_terms else None
 
     if not keyword and not cpes_to_search:
         print("Erro: Você deve fornecer uma palavra-chave (--keyword) ou selecionar um(ns) CPE(s) (--cpe-select).")
@@ -152,9 +153,11 @@ if __name__ == "__main__":
         formatter_class=argparse.RawTextHelpFormatter
     )
     
+    # Mude 'nargs' para '+' para aceitar um ou mais termos
     parser.add_argument(
         "-k", "--keyword", 
-        help="A palavra-chave para buscar na NVD (ex: 'chrome', 'firefox 40')."
+        nargs='+', # Permite um ou mais valores para -k
+        help="Termos para buscar na NVD (ex: 'firefox 40 rce'). Separe os termos com espaço."
     )
     
     parser.add_argument(
@@ -179,4 +182,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
+    # Passe args.keyword (que agora é uma lista) para a função
     search_nvd(args.keyword, args.cpe_select, args.severity, args.cvss_version)
