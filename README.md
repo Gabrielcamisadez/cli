@@ -3,22 +3,22 @@ Uma ferramenta de linha de comando (CLI) para buscar Common Vulnerabilities and 
 
 # 🚀 Instalação Rápida
 
-* git clone https://github.com/Gabrielcamisadez/cli
+> git clone https://github.com/Gabrielcamisadez/cli
 
 # 🔮 Ambiente Virtual 
 
 ### Criar o venv
-* python3 -m venv venv
+> python3 -m venv venv
 
 ### Ativar no Linux/macOS:
-* source venv/bin/activate
+> source venv/bin/activate
 
 ### Ativar no Windows:
-* .\venv\Scripts\activate
+> .\venv\Scripts\activate
 
 # 🔭 Instale as dependências:
 
-* pip install -r requirements.txt
+> pip install -r requirements.txt
 
 # 💡 Como Usar
 Execute o script com python3 cli.py e os argumentos desejados.
