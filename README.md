@@ -3,22 +3,22 @@ Uma ferramenta de linha de comando (CLI) para buscar Common Vulnerabilities and 
 
 # 🚀 Instalação Rápida
 
-`git clone https://github.com/Gabrielcamisadez/cli
+* git clone https://github.com/Gabrielcamisadez/cli
 
 # 🔮 Ambiente Virtual 
 
 ### Criar o venv
-`python3 -m venv venv
+* python3 -m venv venv
 
 ### Ativar no Linux/macOS:
-`source venv/bin/activate
+* source venv/bin/activate
 
 ### Ativar no Windows:
-`.\venv\Scripts\activate
+* .\venv\Scripts\activate
 
 # 🔭 Instale as dependências:
 
- `pip install -r requirements.txt
+* pip install -r requirements.txt
 
 # 💡 Como Usar
 Execute o script com python3 cli.py e os argumentos desejados.
@@ -35,14 +35,14 @@ Argumentos:
 # Exemplos:
 Busca básica por palavra-chave:
 
- `python3 cli.py -k "firefox 40"
+> python3 cli.py -k "firefox 40"
 
 Busca por um CPE pré-definido:
 
- `python3 cli.py -c libreoffice_5_3_7_2
+> python3 cli.py -c libreoffice_5_3_7_2
 
 Combinar CPE, palavra-chave e severidade CRÍTICA:
 
- `python3 cli.py -c adobe_flash_player_21_npapi -k "rce" -s CRITICAL
+> python3 cli.py -c adobe_flash_player_21_npapi -k "rce" -s CRITICAL
 
 
