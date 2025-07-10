@@ -40,9 +40,9 @@ Busca básica por palavra-chave:
 
 > python3 cli.py -k "chrome"
 
-Busca por um CPE pré-definido:
+Busca por um CPE especifico:
 
-> python3 cli.py -c libreoffice_5_3_7_2
+> python3 cli.py -c 
 
 
 
