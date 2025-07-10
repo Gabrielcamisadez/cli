@@ -4,41 +4,20 @@ import argparse
 import json
 import sys # Importa o módulo sys para lidar com a saída
 
-# --- Dicionário de CPEs Pré-definidos ---
-PREDEFINED_CPES = {
-    "adobe_acrobat_8_1": "cpe:2.3:a:adobe:acrobat:8.1.0:*:standard:*:*:*:*:*",
-    "adobe_reader_dc": "cpe:2.3:a:adobe:acrobat_reader_dc:*:*:*:*:*:*:*:*",
-    "adobe_flash_player_21_npapi": "cpe:2.3:a:adobe:flash_player:21.0.0.242:*:npapi:*:*:*:*:*",
-    "adobe_reader_9_3_pt_br": "cpe:2.3:a:adobe:acrobat_reader:9.3:*:*:*:*:*:pt-br:*",
-    "libreoffice_5_3_7_2": "cpe:2.3:a:libreoffice:libreoffice:5.3.7.2:*:*:*:*:*:*:*",
-    "ms_office_2007_enterprise": "cpe:2.3:a:microsoft:office:2007:*:enterprise:*:*:*:*:*",
-    "ms_office_2007_standard": "cpe:2.3:a:microsoft:office:2007:*:standard:*:*:*:*:*",
-    "ms_visual_studio_6_enterprise": "cpe:2.3:a:microsoft:visual_studio:6.0:*:enterprise:*:*:*:*:*",
-    "mozilla_firefox_40_pt_br": "cpe:2.3:a:mozilla:firefox:40.0:*:*:*:*:*:*:*" # Ajustado para ser mais genérico para fins de busca
-}
 
-def search_nvd(keyword_terms=None, selected_cpes_keys=None, cvss_severity=None, cvss_version=None, output_file=None):
+
+def search_nvd(keyword_terms=None, cpe_name=None, cvss_severity=None, cvss_version=None, output_file=None):
     """
     Realiza buscas na NVD usando palavra-chave e/ou CPE(s) de um dicionário pré-definido,
     com filtros opcionais de severidade, versão CVSS e exporta para arquivo.
     """
     base_url = "https://services.nvd.nist.gov/rest/json/cves/2.0"
     
-    cpes_to_search = []
-
-    if selected_cpes_keys:
-        for key in selected_cpes_keys:
-            if key in PREDEFINED_CPES:
-                cpes_to_search.append(PREDEFINED_CPES[key])
-            else:
-                print(f"Aviso: Chave de CPE '{key}' não encontrada nos CPEs pré-definidos. Ignorando.")
-
     # Combina os termos de palavra-chave em uma única string, se houver
     keyword = " ".join(keyword_terms) if keyword_terms else None
 
-    if not keyword and not cpes_to_search:
-        print("Erro: Você deve fornecer uma palavra-chave (--keyword) ou selecionar um(ns) CPE(s) (--cpe-select).")
-        print(f"Opções de CPE pré-definidos disponíveis: {', '.join(PREDEFINED_CPES.keys())}")
+    if not keyword and not cpe_name:
+        print("Erro: Você deve fornecer uma palavra-chave (--keyword) ou um CPE (--cpe).")
         return
 
     # Define o destino da saída
@@ -55,17 +34,15 @@ def search_nvd(keyword_terms=None, selected_cpes_keys=None, cvss_severity=None, 
 
     all_vulnerabilities = [] # Lista para coletar todas as vulnerabilidades para exportação
 
-    if cpes_to_search:
-        for single_cpe in cpes_to_search:
-            friendly_name = next((name for name, cpe_val in PREDEFINED_CPES.items() if cpe_val == single_cpe), single_cpe)
-            print(f"\n--- Buscando para CPE: {friendly_name} ({single_cpe}) {'com palavra-chave: ' + keyword if keyword else ''} ---", file=output_stream)
-            params = {"cpeName": single_cpe}
-            if keyword:
-                params["keywordSearch"] = keyword
-            
-            vuls = _perform_nvd_request(base_url, params, cvss_severity, cvss_version, output_stream)
-            if vuls:
-                all_vulnerabilities.extend(vuls)
+    if cpe_name:
+        print(f"\n--- Buscando para CPE: {cpe_name} {'com palavra-chave: ' + keyword if keyword else ''} ---", file=output_stream)
+        params = {"cpeName": cpe_name}
+        if keyword:
+            params["keywordSearch"] = keyword
+        
+        vuls = _perform_nvd_request(base_url, params, cvss_severity, cvss_version, output_stream)
+        if vuls:
+            all_vulnerabilities.extend(vuls)
 
     elif keyword:
         print(f"\n--- Buscando para palavra-chave: {keyword} ---", file=output_stream)
@@ -200,10 +177,8 @@ if __name__ == "__main__":
     )
     
     parser.add_argument(
-        "-c", "--cpe-select",
-        nargs='+',
-        help="Selecione um ou mais nomes de CPE pré-definidos para buscar.\n"
-             f"Disponíveis: {', '.join(PREDEFINED_CPES.keys())}"
+        "-c", "--cpe",
+        help="CPE específico para buscar (ex: 'cpe:2.3:a:vendor:product:version:*:*:*:*:*:*:*')."
     )
 
     parser.add_argument(
@@ -228,4 +203,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     # Passe o novo argumento output_file para a função search_nvd
-    search_nvd(args.keyword, args.cpe_select, args.severity, args.cvss_version, args.output_file)
+    search_nvd(args.keyword, args.cpe, args.severity, args.cvss_version, args.output_file)
