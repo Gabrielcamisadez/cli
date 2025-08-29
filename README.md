@@ -1,5 +1,7 @@
 🔎 NVD CLI: Busca de Vulnerabilidades Simplificada
 
+> git clone https//github.com/Gabrielcamisadez/cli
+
 Uma ferramenta de linha de comando (CLI) para buscar Common Vulnerabilities and Exposures (CVEs) na National Vulnerability Database (NVD) do NIST.
 
 ## 🚀 Instalação Rápida
