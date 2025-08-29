@@ -38,7 +38,7 @@ Argumentos:
 ## Exemplos:
 Busca básica por palavra-chave:
 
-> python3 cli.py -k "firefox 40"
+> python3 cli.py -k "firefox 90"
 
 > python3 cli.py -k "chrome"
 
