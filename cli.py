@@ -5,7 +5,6 @@ import json
 import sys # Importa o módulo sys para lidar com a saída
 
 
-
 def search_nvd(keyword_terms=None, cpe_name=None, cvss_severity=None, cvss_version=None, output_file=None):
     """
     Realiza buscas na NVD usando palavra-chave e/ou CPE(s) de um dicionário pré-definido,
