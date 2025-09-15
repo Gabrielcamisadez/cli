@@ -63,7 +63,6 @@ def search_nvd(keyword_terms=None, cpe_name=None, cvss_severity=None, cvss_versi
 
 
 def _perform_nvd_request(base_url, params, cvss_severity, cvss_version, output_stream):
-    """Função auxiliar para fazer a requisição à NVD e processar a resposta."""
     
     try:
         response = requests.get(base_url, params=params)
