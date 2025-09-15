@@ -4,26 +4,15 @@
 
 Uma ferramenta de linha de comando (CLI) para buscar Common Vulnerabilities and Exposures (CVEs) na National Vulnerability Database (NVD) do NIST.
 
-## 🚀 Instalação Rápida
+##  instalação 
 
 > git clone https://github.com/Gabrielcamisadez/cli
 
-## 🔮 Ambiente Virtual 
+### env setup
+> python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
 
-### Criar o venv
-> python3 -m venv venv
 
-### Ativar no Linux/macOS:
-> source venv/bin/activate
-
-### Ativar no Windows:
-> .\venv\Scripts\activate
-
-## 🔭 Instale as dependências:
-
-> pip install -r requirements.txt
-
-## 💡 Como Usar
+## usage
 Execute o script com python3 cli.py e os argumentos desejados.
 
 Argumentos:
