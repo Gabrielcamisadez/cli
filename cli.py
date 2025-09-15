@@ -2,17 +2,16 @@
 import requests
 import argparse
 import json
-import sys # Importa o módulo sys para lidar com a saída
+import sys 
 
 
 def search_nvd(keyword_terms=None, cpe_name=None, cvss_severity=None, cvss_version=None, output_file=None):
     """
-    Realiza buscas na NVD usando palavra-chave e/ou CPE(s) de um dicionário pré-definido,
+    Realiza buscas na NVD usando o param keywordSearch ou CPE(s) de um dicionário pré-definido,
     com filtros opcionais de severidade, versão CVSS e exporta para arquivo.
     """
     base_url = "https://services.nvd.nist.gov/rest/json/cves/2.0"
     
-    # Combina os termos de palavra-chave em uma única string, se houver
     keyword = " ".join(keyword_terms) if keyword_terms else None
 
     if not keyword and not cpe_name:
