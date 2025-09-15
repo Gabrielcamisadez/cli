@@ -1,0 +1,31 @@
+#+title: Busca por CVEs na api do NVD
+#+author: gabriel
+#+description: Ferramenta que busca  common vulnerabilities and exposures (CVE) na National Vulnerabilitiy Database (NVD) do NIST
+
+* setup
+
+*repositório* ->
+#+begin_src sh
+git clone https://github.com/Gabrielcamisadez/cli
+#+end_src
+
+*environment* ->
+#+begin_src sh
+python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+#+end_src
+
+* uso
+
+O script possui duas opções de busca na API, via CPE (common platform enumeration) que é um padrão de busca por nome de produtos/sistemas.
+
+A outra opção é com o parâmetro ~keywordSearch~ que permite uma busca mais personalizada com a API
+
+*keywordSearch*
+#+begin_src sh
+python3 cli.py -k "firefox 70"
+#+end_src
+
+*keywordSearch only CRITICAL CVEs*
+#+begin_src
+python3 cli.py -k "openssh 5" -s CRITICAL
+#+end_src
