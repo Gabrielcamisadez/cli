@@ -19,7 +19,6 @@ def search_nvd(keyword_terms=None, cpe_name=None, cvss_severity=None, cvss_versi
         print("Erro: Você deve fornecer uma palavra-chave (--keyword) ou um CPE (--cpe).")
         return
 
-    # Define o destino da saída
     output_stream = None
     if output_file:
         try:
@@ -29,9 +28,9 @@ def search_nvd(keyword_terms=None, cpe_name=None, cvss_severity=None, cvss_versi
             print(f"Erro ao abrir o arquivo '{output_file}': {e}", file=sys.stderr)
             return
     else:
-        output_stream = sys.stdout # Imprime no terminal por padrão
+        output_stream = sys.stdout 
 
-    all_vulnerabilities = [] # Lista para coletar todas as vulnerabilidades para exportação
+    all_vulnerabilities = [] 
 
     if cpe_name:
         print(f"\n--- Buscando para CPE: {cpe_name} {'com palavra-chave: ' + keyword if keyword else ''} ---", file=output_stream)
@@ -50,11 +49,8 @@ def search_nvd(keyword_terms=None, cpe_name=None, cvss_severity=None, cvss_versi
         if vuls:
             all_vulnerabilities.extend(vuls)
 
-    # Se um arquivo de saída foi especificado, salve todos os resultados em JSON
     if output_file and all_vulnerabilities:
         try:
-            # Reabre o arquivo para garantir que estamos escrevendo o JSON completo
-            # ou escreve de uma vez se não foi aberto para printar durante a execução
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(all_vulnerabilities, f, indent=4, ensure_ascii=False)
             print(f"\nTodos os {len(all_vulnerabilities)} resultados foram salvos em '{output_file}' como JSON.")
@@ -148,10 +144,10 @@ def _perform_nvd_request(base_url, params, cvss_severity, cvss_version, output_s
                 if not displayed_cvss:
                     print("    **CVSS**: Não disponível", file=output_stream)
                 print("    " + "-" * 70, file=output_stream) 
-            return vulnerabilities # Retorna as vulnerabilidades para serem coletadas
+            return vulnerabilities 
         else:
             print(f"  Nenhuma vulnerabilidade encontrada com os filtros aplicados para esta consulta.", file=output_stream)
-            return [] # Retorna lista vazia
+            return [] 
     except requests.exceptions.RequestException as e:
         print(f"  Erro ao fazer a requisição: {e}", file=sys.stderr)
         return []
@@ -193,7 +189,6 @@ if __name__ == "__main__":
         help="Especifica qual versão do CVSS exibir (2.0 ou 3.1)."
     )
 
-    # Novo argumento para o arquivo de saída
     parser.add_argument(
         "-o", "--output-file",
         help="Caminho para o arquivo onde os resultados serão salvos (formato JSON). Se não especificado, imprime no terminal."
@@ -201,5 +196,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    # Passe o novo argumento output_file para a função search_nvd
     search_nvd(args.keyword, args.cpe, args.severity, args.cvss_version, args.output_file)
