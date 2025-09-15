@@ -44,3 +44,30 @@ Table of Contents
   ┌────
   │ python3 cli.py -k "openssh 5" -s CRITICAL
   └────
+
+  ┌────
+  │ python3 cli.py -k "vim" -s CRITICAL
+  └────
+
+
+  ┌────
+  │ --- Buscando para palavra-chave: vim ---
+  │   Resultados encontrados (4 vulnerabilidades):
+  │     **ID**: CVE-2020-9769
+  │     **Descrição**: Multiple issues were addressed by updating to version 8.1.185
+  │ 0. This issue is fixed in macOS Catalina 10.15.4. Multiple issues in Vim....
+  │     **Publicado em**: 2020-04-01T18:15:17.630
+  │     **CVSS v3.1 Severidade**: CRITICAL (Pontuação: 9.8)
+  │     ----------------------------------------------------------------------
+  │     **ID**: CVE-2022-0318
+  │     **Descrição**: Heap-based Buffer Overflow in vim/vim prior to 8.2....
+  │     **Publicado em**: 2022-01-21T12:15:10.053
+  │     **CVSS v3.1 Severidade**: CRITICAL (Pontuação: 9.8)
+  │     ----------------------------------------------------------------------
+  │     **ID**: CVE-2022-3520
+  │     **Descrição**: Heap-based Buffer Overflow in GitHub repository vim/vim prior
+  │  to 9.0.0765....
+  │     **Publicado em**: 2022-12-02T19:15:11.010
+  │     **CVSS v3.1 Severidade**: CRITICAL (Pontuação: 9.8)
+  │     ----------------------------------------------------------------------
+  └────
